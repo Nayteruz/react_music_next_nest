@@ -10,6 +10,7 @@ export class TrackController {
     @Get()
     getAll() {
         return 'work'
+
     }
 
     getOne() {
