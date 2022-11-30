@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Post, UploadedFiles, UseInterceptors} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Query, UploadedFiles, UseInterceptors} from "@nestjs/common";
 import {TrackService} from "./track.service";
 import {CreateTrackTdo} from "./dto/create.track.tdo";
 import {ObjectId} from "mongoose";
@@ -23,8 +23,14 @@ export class TrackController {
     }
 
     @Get()
-    getAll() {
-        return this.trackService.getAll()
+    getAll(@Query('count') count: number,
+           @Query('offset') offset: number) {
+        return this.trackService.getAll(count, offset)
+    }
+
+    @Get('/search')
+    search(@Query('query') query: string) {
+        return this.trackService.search(query)
     }
 
     @Get(':id')
